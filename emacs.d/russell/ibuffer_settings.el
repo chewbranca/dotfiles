@@ -22,7 +22,9 @@
             ("CouchDB"
              (filename . "src/couchdb/"))
             ("Nodeverse"
-              (filename . "src/nodeverse/"))
+             (filename . "src/nodeverse/"))
+            ("Emacs"
+             (filename . "src/dotfiles/emacs.d"))
             ("Programming" ;; prog stuff not already in MyProjectX
               (or
                 (mode . c-mode)
