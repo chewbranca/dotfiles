@@ -1,0 +1,6 @@
+[submodule "plugins/python-mode"]
+	path = plugins/python-mode
+	url = git://github.com/emacsmirror/python-mode.git
+[submodule "emacs.d/plugins/python-mode"]
+	path = emacs.d/plugins/python-mode
+	url = git://github.com/emacsmirror/python-mode.git
