@@ -27,3 +27,5 @@
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 (setq epa-armor 't)
+
+(defalias 'yes-or-no-p 'y-or-n-p)

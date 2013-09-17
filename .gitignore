@@ -16,10 +16,11 @@ tramp
 .\#*
 emacs.d/auto-save-list
 emacs.d/backups
-emacs.d/plugins
+emacs.d/plugins/extra
 emacs.d/elpa
 emacs.d/smex-items
 emacs.d/places
 emacs.d/org-clock-save.el
 emacs.d/custom.el
 emacs.d/url
+emacs.d/ac-comphist.dat

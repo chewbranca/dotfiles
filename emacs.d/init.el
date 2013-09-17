@@ -1,14 +1,15 @@
 (require 'cl)
 
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
 
 (setq ido-use-virtual-buffers t
       custom-file "~/.emacs.d/custom.el"
       ido-handle-duplicate-virtual-buffers 2)
 
-(when (not (require 'package nil t))
-  (require 'package "package-23.el"))
+(load custom-file t)
+
+(add-to-list 'load-path "~/.emacs.d/plugins/extra")
+
+(require 'package)
 
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/"))

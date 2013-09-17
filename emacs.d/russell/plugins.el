@@ -21,3 +21,8 @@ the mode-line."
 
 (window-number-mode 1)
 (global-set-key "\C-c\C-j" 'window-number-select)
+
+;; ido-hacks
+;; used for M-x completion and other things
+(require 'ido-hacks)
+(ido-hacks-mode)

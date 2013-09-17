@@ -2,12 +2,14 @@
 ;;(require 'solarized-definitions)
 ;; (require 'solarized-dark-theme)
 ;; (require 'solarized-light-theme)
-;; (add-to-list 'load-path "~/.emacs.d/themes/")
+(add-to-list 'load-path "~/.emacs.d/themes/")
 ;;(require 'sunburst-theme)
 ;; (require 'tomorrow-night-bright-theme)
 
 ;; (load-theme 'sanityinc-tomorrow-bright)
-(load-theme 'twilight)
+;; (load-theme 'twilight)
+(require 'tomorrow-night-bright-theme)
+;; (load-theme 'sunburst)
 
 ;; Magit colorings
 (eval-after-load 'magit
