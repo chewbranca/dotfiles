@@ -29,3 +29,9 @@
 (setq epa-armor 't)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
+
+;; ido-ignore-files
+(add-to-list 'ido-ignore-files ".beam")
+
+;; Display column number
+(column-number-mode t)

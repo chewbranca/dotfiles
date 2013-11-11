@@ -22,7 +22,7 @@
                                       markdown-mode erc-hl-nicks ipython magit
                                       yaml-mode ghc haskell-mode window-number
                                       ghci-completion yasnippet nrepl smex
-                                      diminish
+                                      diminish flymake
                                       ;; highline buffer-move rect-mark
                                       ;; color themes
                                       color-theme-twilight
