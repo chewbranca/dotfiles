@@ -14,6 +14,15 @@
 ;; do this better
 ;; (add-to-list 'load-path "/usr/local/Cellar/erlang/R15B01/lib/erlang/lib/tools-2.6.7/emacs/")
 
+;; adapted from: https://github.com/adbl/tools-emacs/blob/master/david.emacs
+(defun erlang-shell-connect-to-node (name)
+  (interactive "MNode name to connect to: ")
+  (let* ((inferior-erlang-machine-options
+          (list "-hidden"
+                "-name" (format "emacs-remsh-%s" name)
+                "-remsh" (format "%s@127.0.0.1" name))))
+    (erlang-shell-display)))
+
 ;; /Erlang
 
 ;; Markdown
@@ -78,3 +87,10 @@
 (define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
 
 ;; /Elisp
+
+
+;; paredit
+
+(defun pnh-paredit-no-space ()
+  (set (make-local-variable 'paredit-space-for-delimiter-predicates)
+       '((lambda (endp delimiter) nil))))

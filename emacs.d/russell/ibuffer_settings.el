@@ -15,6 +15,16 @@
              (filename . "src/cloudant/website/"))
             ("Wilson"
              (filename . "src/cloudant/wilson/"))
+            ("Fabric"
+             (filename . "src/cloudant/dbcore/deps/fabric"))
+            ("chttpd"
+             (filename . "src/cloudant/dbcore/deps/chttpd"))
+            ("mem3"
+             (filename . "src/cloudant/dbcore/deps/mem3"))
+            ("rexi"
+             (filename . "src/cloudant/dbcore/deps/rexi"))
+            ("DbCore"
+             (filename . "src/cloudant/dbcore"))
             ("Cloudant"
              (filename . "src/cloudant/"))
             ("Fauxton"

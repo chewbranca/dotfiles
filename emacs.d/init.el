@@ -22,12 +22,12 @@
                                       markdown-mode erc-hl-nicks ipython magit
                                       yaml-mode ghc haskell-mode window-number
                                       ghci-completion yasnippet nrepl smex
-                                      diminish flymake
+                                      diminish flymake go-mode
                                       ;; highline buffer-move rect-mark
                                       ;; color themes
                                       color-theme-twilight
                                       color-theme-solarized
-                                      twilight-theme
+                                      twilight-theme undo-tree git-gutter
                                       ))
 
 (dolist (p my-packages)
