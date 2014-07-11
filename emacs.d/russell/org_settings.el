@@ -79,8 +79,7 @@
 ;;                                "~/Documents/org/home.org")))
 
 (setq org-agenda-files (quote ("~/Documents/org/cloudant.org"
-                               "~/Documents/org/me.org"
-                               "~/Documents/org/home.org")))
+                               "~/Documents/org/couch_views.org")))
 
 
 (setq org-todo-keywords

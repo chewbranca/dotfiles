@@ -6,7 +6,8 @@
 ;; Erlang
 (add-to-list 'auto-mode-alist '("\\.\\(erl\\|hrl\\|app\\)$" . erlang-mode))
 
-(add-to-list 'load-path "~/.emacs.d/plugins/extra/erlang")
+(add-to-list 'load-path "~/erlbrew/R14B01//lib/erlang/lib/tools-2.6.6.2/emacs")
+;; (add-to-list 'load-path "~/.emacs.d/plugins/extra/erlang")
 (require 'erlang)
 (add-to-list 'load-path "~/.emacs.d/plugins/edts")
 (require 'edts-start)
@@ -23,6 +24,44 @@
                 "-remsh" (format "%s@127.0.0.1" name))))
     (erlang-shell-display)))
 
+
+;; https://gist.github.com/banjiewen/d434e04065080cf15604
+(setq erlang-indent-level 4)
+
+(defun erlang-outdent ()
+  (max 0 (- (current-indentation) erlang-indent-level)))
+
+(defun erlang-indent ()
+  (+ (current-indentation) erlang-indent-level))
+
+(defun erlang-indent-line ()
+  ;; Watch out, this breaks if you comment your code!
+  (indent-line-to
+   (save-excursion
+     (while (progn
+              (forward-line -1)
+              (looking-at "^[[:space:]]*$")))
+     (end-of-line)
+     (cond ((equal (string (char-before)) ",") (current-indentation))
+           ((equal (string (char-before)) "(") (erlang-indent))
+           ((equal (string (char-before)) "[") (erlang-indent))
+           ((equal (string (char-before)) "{") (erlang-indent))
+           ((equal (string (char-before)) ".") (erlang-outdent))
+           ((equal (string (char-before)) ";") (erlang-outdent))
+           ((looking-back "->") (erlang-indent))
+           ((looking-back " of") (erlang-indent))
+           ;; Default case breaks on `end` statements of case clauses
+           (t (erlang-outdent))))))
+
+(defun erlang-indent-region (start end)
+  (save-excursion
+    (goto-char start)
+    (while (progn
+             (when (not (looking-at "^[[:space:]]*$"))
+               (erlang-indent-line))
+             (forward-line)
+             (< (line-number-at-pos) (line-number-at-pos end))))))
+
 ;; /Erlang
 
 ;; Markdown
@@ -32,27 +71,27 @@
 ;; Python
 ;;
 ;; ipython settings
-(setq
- python-shell-interpreter "ipython"
- python-shell-interpreter-args ""
- python-shell-prompt-regexp "In \\[[0-9]+\\]: "
- python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
- python-shell-completion-setup-code
- "from IPython.core.completerlib import module_completion"
- python-shell-completion-module-string-code
- "';'.join(module_completion('''%s'''))\n"
- python-shell-completion-string-code
- "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+;; (setq
+;;  python-shell-interpreter "ipython"
+;;  python-shell-interpreter-args ""
+;;  python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+;;  python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
+;;  python-shell-completion-setup-code
+;;  "from IPython.core.completerlib import module_completion"
+;;  python-shell-completion-module-string-code
+;;  "';'.join(module_completion('''%s'''))\n"
+;;  python-shell-completion-string-code
+;;  "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 
-(add-to-list 'load-path "~/.emacs.d/plugins/python-mode/")
-;; this will show method signatures while typing
-(setq py-set-complete-keymap-p t)
-(require 'python-mode)
+;; (add-to-list 'load-path "~/.emacs.d/plugins/python-mode/")
+;; ;; this will show method signatures while typing
+;; (setq py-set-complete-keymap-p t)
+;; (require 'python-mode)
 
-;;Unless other libraries depend on python.el, unloading 'python is
-;;recommended,as it seems to destroy python-mode user defined
-;;abbreviations:
-(when (featurep 'python) (unload-feature 'python t))
+;; ;;Unless other libraries depend on python.el, unloading 'python is
+;; ;;recommended,as it seems to destroy python-mode user defined
+;; ;;abbreviations:
+;; (when (featurep 'python) (unload-feature 'python t))
 
 ;; nose settings
 ;;(require 'nose)
