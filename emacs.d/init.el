@@ -27,6 +27,7 @@
                                       ;; color themes
                                       color-theme-twilight
                                       color-theme-solarized
+                                      geiser
                                       twilight-theme undo-tree git-gutter
                                       ))
 

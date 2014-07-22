@@ -16,7 +16,7 @@
 ;; (load-theme 'solarized-dark t)
 ;; (load-theme 'solarized-[light|dark] t)
 ;; (load-theme 'solarized-dark t)
-;; (load-theme 'twilight)
+(load-theme 'twilight)
 
 ;; Magit colorings
 (eval-after-load 'magit
