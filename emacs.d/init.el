@@ -8,6 +8,7 @@
 (load custom-file t)
 
 (add-to-list 'load-path "~/.emacs.d/plugins/extra")
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp")
 
 (require 'package)
 
@@ -25,6 +26,7 @@
                                       diminish flymake go-mode
                                       ;; highline buffer-move rect-mark
                                       ;; color themes
+                                      exec-path-from-shell
                                       color-theme-twilight
                                       color-theme-solarized
                                       geiser
@@ -34,6 +36,10 @@
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
+
+;; make sure $PATH is set when starting GUI
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
 ;; (mapc 'load (directory-files (concat user-emacs-directory user-login-name)
 ;;                              t "^[^#].*el$"))

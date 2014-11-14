@@ -133,3 +133,9 @@
 (defun pnh-paredit-no-space ()
   (set (make-local-variable 'paredit-space-for-delimiter-predicates)
        '((lambda (endp delimiter) nil))))
+
+
+;; log files
+
+(add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
+

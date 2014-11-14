@@ -60,3 +60,17 @@
 ;; (global-set-key (kbd "C-x v s") 'git-gutter:stage-hunk)
 ;; Revert current hunk
 ;; (global-set-key (kbd "C-x v r") 'git-gutter:revert-hunk)
+
+
+;; grep ignore
+(eval-after-load 'grep
+  '(when (boundp 'grep-find-ignored-files)
+     (add-to-list 'grep-find-ignored-files "*.beam")))
+
+
+(setq grep-command "grep -nH -r --exclude-dir='.git' --exclude-dir='.eunit' --exclude='*.beam'")
+
+
+;; epa
+(require 'epa)
+(epa-file-enable)
