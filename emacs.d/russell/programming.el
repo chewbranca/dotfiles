@@ -10,7 +10,7 @@
 ;; (add-to-list 'load-path "~/.emacs.d/plugins/extra/erlang")
 (require 'erlang)
 (add-to-list 'load-path "~/.emacs.d/plugins/edts")
-(require 'edts-start)
+;; (require 'edts-start)
 
 ;; do this better
 ;; (add-to-list 'load-path "/usr/local/Cellar/erlang/R15B01/lib/erlang/lib/tools-2.6.7/emacs/")

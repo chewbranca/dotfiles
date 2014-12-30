@@ -1,5 +1,5 @@
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
-(require 'mu4e)
+;; (require 'mu4e)
 
 
 ;; default
@@ -84,11 +84,11 @@
 (setq message-kill-buffer-on-exit t)
 
 ;; bookmarks
-(add-to-list 'mu4e-bookmarks
-             '(
-               "list:user.couchdb.apache.org OR list:dev.couchdb.apache.org"
-               "CouchDB Main"
-               ?c))
+;; (add-to-list 'mu4e-bookmarks
+;;              '(
+;;                "list:user.couchdb.apache.org OR list:dev.couchdb.apache.org"
+;;                "CouchDB Main"
+;;                ?c))
 
 ;; html
 (setq mu4e-html2text-command "w3m -T text/html")
