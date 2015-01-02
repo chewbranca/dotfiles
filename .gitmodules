@@ -6,4 +6,5 @@
 	url = git://github.com/emacsmirror/python-mode.git
 [submodule "emacs.d/plugins/edts"]
 	path = emacs.d/plugins/edts
-	url = https://github.com/tjarvstrand/edts.git
+	branch = chewbranca-hacks
+	url = https://github.com/chewbranca/edts.git
