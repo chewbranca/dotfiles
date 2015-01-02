@@ -56,3 +56,13 @@
 (smex-initialize)
 
 (eshell)
+
+
+;; hack around annoying copy thing
+;; thanks to https://groups.google.com/forum/#!topic/gnu.emacs.help/2WIkga774vM
+(when (eq window-system 'ns)
+  (defadvice ns-get-pasteboard (around hack-empty-pasteboard compile activate)
+    (condition-case err
+        ad-do-it
+      (quit (message "%s" (cadr err))
+            nil))))

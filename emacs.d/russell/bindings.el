@@ -56,3 +56,10 @@ under the point. Useful if the matching paren is out of sight. "
 ;; (global-set-key (kbd "C-x r C-w")   'rm-kill-region)
 ;; (global-set-key (kbd "C-x r M-w")   'rm-kill-ring-save)
 ;; (global-set-key (kbd "C-x r <down-mouse-1>") 'rm-mouse-drag-region)
+
+
+;; DocView
+(fset 'doc-prev "\C-xo\C-x[\C-xo")
+(fset 'doc-next "\C-xo\C-x]\C-xo")
+(global-set-key (kbd "M-[") 'doc-prev)
+(global-set-key (kbd "M-]") 'doc-next)

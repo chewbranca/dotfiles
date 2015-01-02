@@ -9,7 +9,8 @@
  mu4e-drafts-folder "/Drafts"
  mu4e-sent-folder   "/Sent"
  mu4e-trash-folder  "/Trash"
- mu4e-refile-folder "/Archive")
+ ;; mu4e-refile-folder "/Archive"
+ )
 
 
 ;; setup some handy shortcuts
@@ -83,6 +84,9 @@
 ;; don't keep message buffers around
 (setq message-kill-buffer-on-exit t)
 
+;; show full email addresses
+(setq mu4e-view-show-addresses t)
+
 ;; bookmarks
 ;; (add-to-list 'mu4e-bookmarks
 ;;              '(
@@ -93,3 +97,46 @@
 ;; html
 (setq mu4e-html2text-command "w3m -T text/html")
 
+
+
+(setq mu4e-refile-folder
+  (lambda (msg)
+    (cond
+      ;; messages to the couchdb mailing list go to the /couchdb folder
+      ((mu4e-message-contact-field-matches msg :to
+        "dev@couchdb.apache.org")
+        "/CouchDB")
+      ((mu4e-message-contact-field-matches msg :to
+        "user@couchdb.apache.org")
+        "/CouchDB")
+      ((mu4e-message-contact-field-matches msg :to
+        "commits@couchdb.apache.org")
+        "/CouchDB-Commits")
+      ;; messages with GitHub in the subject go to /GitHub
+      ((string-match "GitHub"
+        (mu4e-message-field msg :subject))
+        "/GitHub")
+      ;; GitHub notifications goto /GitHub
+      ((mu4e-message-contact-field-matches msg :from "notifications@github.com")
+        "/GitHub")
+      ;; messages with FogBugz in the subject go to /FogBugz
+      ((string-match "FogBugz"
+        (mu4e-message-field msg :subject))
+        "/FogBugz")
+      ;; messages sent directly to me go to /private
+      ;; also `mu4e-user-mail-address-p' can be used
+      ((mu4e-message-contact-field-matches msg :to "chewbranca@linux.vnet.ibm.com")
+       "/Private")
+      ;; messages sent by me go to the sent folder
+      ((mu4e-message-contact-field-matches msg :from "chewbranca@linux.vnet.ibm.com")
+        mu4e-sent-folder)
+      ;; messages sent by me go to the sent folder
+      ;; TODO: this breaks and sends lots of things to sent folder
+      ;; ((find-if
+      ;;   (lambda (addr)
+      ;;     (mu4e-message-contact-field-matches msg :from addr))
+      ;;   mu4e-user-mail-address-list)
+      ;;  mu4e-sent-folder)
+      ;; everything else goes to /archive
+      ;; important to have a catch-all at the end!
+      (t  "/Archive"))))

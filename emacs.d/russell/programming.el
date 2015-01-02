@@ -139,3 +139,9 @@
 
 (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
 
+
+;; C
+
+(setq-default c-basic-offset 4)
+
+;; /C
