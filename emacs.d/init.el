@@ -24,14 +24,14 @@
 
 (defvar my-packages '(better-defaults paredit
                                       ;; clojure-mode clojure-test-mode nrepl
-                                      markdown-mode erc-hl-nicks ipython magit
+                                      markdown-mode erc-hl-nicks magit
                                       yaml-mode ghc haskell-mode window-number
                                       ghci-completion yasnippet smex
                                       diminish flymake go-mode
-                                      ;; highline buffer-move rect-mark
+                                      ;; highline buffer-move rect-mark ipython
                                       ;; color themes
                                       exec-path-from-shell
-                                      color-theme-twilight
+                                      ;; color-theme-twilight
                                       color-theme-solarized
                                       geiser
                                       erlang
