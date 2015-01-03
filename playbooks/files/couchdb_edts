@@ -1,0 +1,2 @@
+:name "node1"
+:lib-dirs '("src")

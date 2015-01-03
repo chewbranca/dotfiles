@@ -95,3 +95,7 @@
       git: repo="https://git-wip-us.apache.org/repos/asf/couchdb.git"
            dest=/home/{{ ansible_ssh_user }}/src/couchdb
            update=no
+
+    - name: CouchDB .edts file
+      copy: src=files/couchdb_edts dest=/home/{{ ansible_ssh_user }}/src/couchdb/.edts
+
