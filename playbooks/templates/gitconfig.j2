@@ -1,0 +1,29 @@
+[user]
+	name = Russell Branca
+	email = {{ git_email | default("chewbranca@gmail.com") }}
+
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lol = log --graph --decorate --pretty=oneline --abbrev-commit
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	st = status -sb
+	l = log --graph --pretty=oneline --abbrev-commig --decorate
+	df = diff --stat -p
+	ds = diff --stat
+
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+	ui = true
+
+[url "https://"]
+	insteadOf = git://
+
+[remote "origin"]
+	fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
+
+[core]
+	autocrlf = input
+	excludesFile = /home/{{ ansible_ssh_user }}/.gitignore_global

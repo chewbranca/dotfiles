@@ -24,3 +24,4 @@ emacs.d/org-clock-save.el
 emacs.d/custom.el
 emacs.d/url
 emacs.d/ac-comphist.dat
+playbooks/files/netrc

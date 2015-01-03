@@ -1,0 +1,97 @@
+---
+- hosts: all
+  vars:
+    git_email: "chewbranca@apache.org"
+
+  tasks:
+    - name: Add Debian backports
+      apt_repository: repo="deb http://http.debian.net/debian wheezy-backports main" state=present
+      sudo: yes
+
+    - name: Add Erlang Solutions Apt repo
+      apt_repository: repo="deb http://packages.erlang-solutions.com/debian wheezy contrib" state=present
+      sudo: yes
+
+    - name: Add Erlang Solutions Apt key
+      apt_key: url="http://packages.erlang-solutions.com/debian/erlang_solutions.asc" state=present
+      sudo: yes
+
+    - name: Update apt-cache
+      apt: update_cache=yes
+      sudo: yes
+
+    - name: Install Emacs24
+      apt: name=emacs24-nox state=latest default_release=wheezy-backports
+      sudo: yes
+
+    - name: Install libcurl
+      apt: name=libcurl4-openssl-dev state=latest default_release=wheezy-backports
+      sudo: yes
+
+    - name: Install deps
+      apt: name={{ item }} state=latest
+      with_items:
+        - build-essential
+        - git
+        - vim-nox
+        - libssl1.0.0
+        - libssl-dev
+        - zlib1g
+        - zlib1g-dev
+        - lsb-base
+        - ncurses-dev
+        - libncurses-dev
+        - libmozjs185-dev
+        - libicu-dev
+        - xsltproc
+        - tmux
+        - erlang
+        - tree
+      sudo: yes
+
+    - file: path=/home/{{ ansible_ssh_user }}/src state=directory
+    - file: path=/home/{{ ansible_ssh_user }}/bin state=directory
+
+    - name: Install netrc
+      copy: src=files/netrc dest=/home/{{ ansible_ssh_user }}/.netrc mode=0400
+
+    - name: Clone dotfiles repo
+      git: repo="https://github.com/chewbranca/dotfiles.git"
+           dest=/home/{{ ansible_ssh_user }}/src/dotfiles
+           update=yes
+
+    - name: Build EDTS
+      # FIXME: .gitmodule should switch to the branch
+      shell: 'cd /home/{{ ansible_ssh_user }}/src/dotfiles/emacs.d/plugins/edts; git checkout chewbranca-hacks; make'
+      run_once: true
+
+    - name: Link configs
+      file: src=/home/{{ ansible_ssh_user }}/src/dotfiles/{{ item.path }}
+            dest=/home/{{ ansible_ssh_user }}/{{ item.dest }}
+            state=link
+            owner={{ ansible_ssh_user }}
+            group={{ ansible_ssh_user }}
+      with_items:
+        - { path: 'tmux.conf', dest: '.tmux.conf' }
+        - { path: 'emacs.d', dest: '.emacs.d' }
+
+    - name: Erlang cookie
+      copy: src=files/erlang.cookie dest=/home/{{ ansible_ssh_user }}/.erlang.cookie
+
+    - name: Git config
+      template: src=templates/gitconfig.j2 dest=/home/{{ ansible_ssh_user }}/.gitconfig
+
+    - name: Git ignore
+      copy: src=files/gitignore_global dest=/home/{{ ansible_ssh_user }}/.gitignore_global
+
+    - name: Fetch rebar
+      get_url: url=https://github.com/rebar/rebar/wiki/rebar
+               dest=/home/{{ ansible_ssh_user }}/bin/rebar
+
+    - name: Make rebar executable
+      file: path=/home/{{ ansible_ssh_user }}/bin/rebar mode=0755
+
+    - name: Fetch CouchDB
+      git: repo="https://git-wip-us.apache.org/repos/asf/couchdb.git"
+           dest=/home/{{ ansible_ssh_user }}/src/couchdb
+           update=no
