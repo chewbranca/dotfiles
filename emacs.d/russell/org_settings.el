@@ -11,9 +11,9 @@
 
 ;;
 ;; Standard key bindings
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
+;; (global-set-key "\C-cl" 'org-store-link)
+;; (global-set-key "\C-ca" 'org-agenda)
+;; (global-set-key "\C-cb" 'org-iswitchb)
 
 
 ;; Org mode settings
@@ -37,6 +37,8 @@
 
 ;; flyspell mode for spell checking everywhere
 (add-hook 'org-mode-hook 'turn-on-flyspell 'append)
+;; turn on auto-fill-mode in org files
+(add-hook 'org-mode-hook 'turn-on-auto-fill 'append)
 
 ;; Disable C-c [ and C-c ] in org-mode
 (add-hook 'org-mode-hook
@@ -60,26 +62,9 @@
 (add-hook 'org-mode-hook (lambda () (abbrev-mode 1)))
 
 
-;; (setq org-agenda-files (quote ("~/Documents/org"
-;;                                "~/Documents/org/cloudant.org"
-;;                                "~/Documents/org/quotes.org"
-;;                                "~/Documents/org/goals.org"
-;;                                "~/Documents/org/life.org"
-;;                                "~/Documents/org/computer.org"
-;;                                "~/Documents/org/nodeverse.org"
-;;                                "~/Documents/org/family.org"
-;;                                "~/Documents/org/me.org"
-;;                                "~/Documents/org/food.org"
-;;                                "~/Documents/org/couchdb.org"
-;;                                "~/Documents/org/mustang.org"
-;;                                "~/Documents/org/shopping.org"
-;;                                "~/Documents/org/research.org"
-;;                                "~/Documents/org/someday.org"
-;;                                "~/Documents/org/tickler.org"
-;;                                "~/Documents/org/home.org")))
-
-(setq org-agenda-files (quote ("~/Documents/org/cloudant.org"
-                               "~/Documents/org/couch_views.org")))
+(setq org-agenda-files (quote ("~/Documents/org/work.org"
+                               "~/Documents/org/water_system.org"
+                               "/vagrant/the_calendar.org")))
 
 
 (setq org-todo-keywords
@@ -170,8 +155,8 @@
 ;; (global-set-key (kbd "<f9> h") 'bh/hide-other)
 ;; (global-set-key (kbd "<f9> i") 'info)
 ;; 
-;; (global-set-key (kbd "<f9> I") 'bh/punch-in)
-;; (global-set-key (kbd "<f9> O") 'bh/punch-out)
+(global-set-key (kbd "<f9> I") 'bh/punch-in)
+(global-set-key (kbd "<f9> O") 'bh/punch-out)
 ;; 
 ;; (global-set-key (kbd "<f9> o") 'bh/make-org-scratch)
 ;; 
@@ -347,6 +332,13 @@
                (org-agenda-skip-function 'bh/skip-projects-and-habits)
                (org-agenda-todo-ignore-scheduled 'future)
                (org-agenda-todo-ignore-deadlines 'future))
+              ("x" "Milestones and commitments"
+               ((agenda ""
+                        ((org-agenda-skip-function
+                          '(org-agenda-skip-entry-if 'notregexp ":milestone:\\|:commit:" 'regexp ":zack:"))
+                         (org-deadline-warning-days 0)
+                         (org-agenda-span 60))))
+                             nil)
               ("A" "Tasks to Archive" tags "-REFILE/"
                ((org-agenda-overriding-header "Tasks to Archive")
                 (org-agenda-skip-function 'bh/skip-non-archivable-tasks))))))
@@ -752,5 +744,13 @@ When not restricted, skip project and sub-project tasks, habits, and project rel
 ;; Display org habits in agenda
 (run-at-time "06:00" 86400 '(lambda () (setq org-habit-show-habits t)))
 
-(setq org-startup-indented t)
+;; (setq org-startup-indented t)
 (setq org-odd-levels-only nil)
+
+; Set default column view headings: Task Effort Clock_Summary
+(setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
+
+; global Effort estimate values
+; global STYLE property values for completion
+(setq org-global-properties (quote (("Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")
+                                    ("STYLE_ALL" . "habit"))))

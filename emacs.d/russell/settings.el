@@ -72,5 +72,6 @@
 
 
 ;; epa
+(setq epa-file-select-keys t)
 (require 'epa)
 (epa-file-enable)
