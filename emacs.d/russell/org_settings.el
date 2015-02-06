@@ -64,7 +64,8 @@
 
 (setq org-agenda-files (quote ("~/Documents/org/work.org"
                                "~/Documents/org/water_system.org"
-                               "/vagrant/the_calendar.org")))
+                               ;; "/vagrant/the_calendar.org"
+                               )))
 
 
 (setq org-todo-keywords
