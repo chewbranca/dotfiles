@@ -1,12 +1,15 @@
 ---
 - hosts: all
   vars:
+#    ansible_python_interpreter: "/usr/local/bin/python2"
     git_email: "chewbranca@apache.org"
 
   tasks:
+
     - name: Add Debian backports
       apt_repository: repo="deb http://http.debian.net/debian wheezy-backports main" state=present
       sudo: yes
+      when: ansible_distribution == 'Debian'
 
     - name: Add Erlang Solutions Apt repo
       apt_repository: repo="deb http://packages.erlang-solutions.com/debian wheezy contrib" state=present
@@ -20,13 +23,25 @@
       apt: update_cache=yes
       sudo: yes
 
-    - name: Install Emacs24
+    - name: Install Emacs24 on Debian
       apt: name=emacs24-nox state=latest default_release=wheezy-backports
       sudo: yes
+      when: ansible_distribution == 'Debian'
 
-    - name: Install libcurl
+    - name: Install libcurl on Debian
       apt: name=libcurl4-openssl-dev state=latest default_release=wheezy-backports
       sudo: yes
+      when: ansible_distribution == 'Debian'
+
+    - name: Install Emacs24 on Ubuntu
+      apt: name=emacs24-nox state=latest
+      sudo: yes
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: Install libcurl on Ubuntu
+      apt: name=libcurl4-openssl-dev
+      sudo: yes
+      when: ansible_distribution == 'Ubuntu'
 
     - name: Install deps
       apt: name={{ item }} state=latest
@@ -55,15 +70,12 @@
     - name: Install netrc
       copy: src=files/netrc dest=/home/{{ ansible_ssh_user }}/.netrc mode=0400
 
+
+    # FIXME: this should use the 1.8.3 clone feature
     - name: Clone dotfiles repo
       git: repo="https://github.com/chewbranca/dotfiles.git"
            dest=/home/{{ ansible_ssh_user }}/src/dotfiles
            update=yes
-
-    - name: Build EDTS
-      # FIXME: .gitmodule should switch to the branch
-      shell: 'cd /home/{{ ansible_ssh_user }}/src/dotfiles/emacs.d/plugins/edts; git checkout chewbranca-hacks; make'
-      run_once: true
 
     - name: Link configs
       file: src=/home/{{ ansible_ssh_user }}/src/dotfiles/{{ item.path }}
@@ -84,6 +96,9 @@
     - name: Git ignore
       copy: src=files/gitignore_global dest=/home/{{ ansible_ssh_user }}/.gitignore_global
 
+    - name: CouchDB .edts file
+      copy: src=files/couchdb_edts dest=/home/{{ ansible_ssh_user }}/src/couchdb/.edts
+
     - name: Fetch rebar
       get_url: url=https://github.com/rebar/rebar/wiki/rebar
                dest=/home/{{ ansible_ssh_user }}/bin/rebar
@@ -96,6 +111,8 @@
            dest=/home/{{ ansible_ssh_user }}/src/couchdb
            update=no
 
-    - name: CouchDB .edts file
-      copy: src=files/couchdb_edts dest=/home/{{ ansible_ssh_user }}/src/couchdb/.edts
+    - name: Build EDTS
+      # FIXME: .gitmodule should switch to the branch
+      shell: 'cd /home/{{ ansible_ssh_user }}/src/dotfiles/emacs.d/plugins/edts; git checkout chewbranca-hacks; make'
+      run_once: true
 
