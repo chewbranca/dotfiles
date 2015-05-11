@@ -11,13 +11,13 @@
       sudo: yes
       when: ansible_distribution == 'Debian'
 
-    - name: Add Erlang Solutions Apt repo
-      apt_repository: repo="deb http://packages.erlang-solutions.com/debian wheezy contrib" state=present
-      sudo: yes
+    # - name: Add Erlang Solutions Apt repo
+    #   apt_repository: repo="deb http://packages.erlang-solutions.com/debian wheezy contrib" state=present
+    #   sudo: yes
 
-    - name: Add Erlang Solutions Apt key
-      apt_key: url="http://packages.erlang-solutions.com/debian/erlang_solutions.asc" state=present
-      sudo: yes
+    # - name: Add Erlang Solutions Apt key
+    #   apt_key: url="http://packages.erlang-solutions.com/debian/erlang_solutions.asc" state=present
+    #   sudo: yes
 
     - name: Update apt-cache
       apt: update_cache=yes
@@ -44,7 +44,7 @@
       when: ansible_distribution == 'Ubuntu'
 
     - name: Install deps
-      apt: name={{ item }} state=latest
+      apt: name={{ item }} state=latest update_cache=yes
       with_items:
         - build-essential
         - git
@@ -60,8 +60,31 @@
         - libicu-dev
         - xsltproc
         - tmux
-        - erlang
+        # - erlang
         - tree
+        - python-pip
+        - python-dev
+
+        # systems performance analysis
+        - sysstat
+        - strace
+        - gcc-multilib # to use libc6-i386 and others
+        - libc6-i386 # nicstat dep
+        - tcpdump
+        - iptraf-ng
+        - iotop
+        - linux-tools-3.2
+
+        # erln8 deps
+        - fop
+        - unixodbc-dev
+        - libglib2.0-dev
+        - autoconf
+
+        # systemtap deps
+        - gettext
+        - libdw-dev
+
       sudo: yes
 
     - file: path=/home/{{ ansible_ssh_user }}/src state=directory
@@ -71,11 +94,12 @@
       copy: src=files/netrc dest=/home/{{ ansible_ssh_user }}/.netrc mode=0400
 
 
-    # FIXME: this should use the 1.8.3 clone feature
     - name: Clone dotfiles repo
       git: repo="https://github.com/chewbranca/dotfiles.git"
            dest=/home/{{ ansible_ssh_user }}/src/dotfiles
-           update=yes
+           update=no
+           clone=yes
+           accept_hostkey=yes
 
     - name: Link configs
       file: src=/home/{{ ansible_ssh_user }}/src/dotfiles/{{ item.path }}
@@ -96,9 +120,6 @@
     - name: Git ignore
       copy: src=files/gitignore_global dest=/home/{{ ansible_ssh_user }}/.gitignore_global
 
-    - name: CouchDB .edts file
-      copy: src=files/couchdb_edts dest=/home/{{ ansible_ssh_user }}/src/couchdb/.edts
-
     - name: Fetch rebar
       get_url: url=https://github.com/rebar/rebar/wiki/rebar
                dest=/home/{{ ansible_ssh_user }}/bin/rebar
@@ -110,9 +131,30 @@
       git: repo="https://git-wip-us.apache.org/repos/asf/couchdb.git"
            dest=/home/{{ ansible_ssh_user }}/src/couchdb
            update=no
+           clone=yes
+
+    # install Erlang
+    - include: erln8.yml
+
+    - name: CouchDB .edts file
+      copy: src=files/couchdb_edts dest=/home/{{ ansible_ssh_user }}/src/couchdb/.edts
+
+    - name: Fetch EDTS
+      git: repo="https://github.com/chewbranca/edts.git"
+           dest=/home/{{ ansible_ssh_user }}/src/dotfiles/emacs.d/plugins/edts
+           update=no
+           clone=yes
+           accept_hostkey=yes
 
     - name: Build EDTS
       # FIXME: .gitmodule should switch to the branch
       shell: 'cd /home/{{ ansible_ssh_user }}/src/dotfiles/emacs.d/plugins/edts; git checkout chewbranca-hacks; make'
       run_once: true
+
+    - name: Install pip modules
+      pip: name={{ item }}
+      with_items:
+        - requests
+        - grequests
+      sudo: yes
 

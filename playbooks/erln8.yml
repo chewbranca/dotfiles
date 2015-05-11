@@ -1,0 +1,54 @@
+---
+
+# - name: Install erln8 deps
+#   apt: name={{ item }} state=latest update_cache=yes
+#   with_items:
+#     - fop
+#     - unixodbc-dev
+#     - libglib2.0-dev
+#     - autoconf
+
+
+- name: Install systemtap
+  shell: 'apt-get install -y systemtap linux-image-$(uname -r)-dbg linux-headers-$(uname -r)'
+  sudo: yes
+
+
+- name: Clone erln8
+  git: repo="https://github.com/metadave/erln8.git"
+       dest=/home/{{ ansible_ssh_user }}/src/erln8
+       update=no
+       clone=yes
+       accept_hostkey=yes
+
+
+- name: Compile erln8
+  command: make
+           chdir=/home/{{ ansible_ssh_user }}/src/erln8
+           creates=/home/{{ ansible_ssh_user }}/src/erln8/erln8
+
+
+- name: Install erln8
+  command: make install
+           chdir=/home/{{ ansible_ssh_user }}/src/erln8
+           creates=/usr/local/bin/erln8
+  sudo: yes
+
+
+- name: Setup erln8
+  command: erln8 --init
+  run_once: true
+
+
+- name: Install erln8 config
+  copy: src=files/erln8.config dest=/home/{{ ansible_ssh_user }}/.erln8.d/config
+
+
+- name: Fetch Erlang src
+  command: erln8 --clone default
+  run_once: true
+
+
+- name: Build default Erlang
+  command: erln8 --build --tag OTP-17.5 --id otp-17.5 --config debug_linux
+  run_once: true
