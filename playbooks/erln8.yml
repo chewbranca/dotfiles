@@ -8,6 +8,19 @@
 #     - libglib2.0-dev
 #     - autoconf
 
+- name: Fetch rebar
+  get_url: url=https://github.com/rebar/rebar/wiki/rebar
+  dest=/home/{{ ansible_ssh_user }}/bin/rebar
+
+- name: Make rebar executable
+  file: path=/home/{{ ansible_ssh_user }}/bin/rebar mode=0755
+
+- name: Fetch CouchDB
+  git: repo="https://git-wip-us.apache.org/repos/asf/couchdb.git"
+       dest=/home/{{ ansible_ssh_user }}/src/couchdb
+       update=no
+       clone=yes
+
 
 - name: Install systemtap
   shell: 'apt-get install -y systemtap linux-image-$(uname -r)-dbg linux-headers-$(uname -r)'
@@ -51,4 +64,20 @@
 
 - name: Build default Erlang
   command: erln8 --build --tag OTP-17.5 --id otp-17.5 --config debug_linux
+  run_once: true
+
+
+- name: CouchDB .edts file
+  copy: src=files/couchdb_edts dest=/home/{{ ansible_ssh_user }}/src/couchdb/.edts
+
+- name: Fetch EDTS
+  git: repo="https://github.com/chewbranca/edts.git"
+       dest=/home/{{ ansible_ssh_user }}/src/dotfiles/emacs.d/plugins/edts
+       update=no
+       clone=yes
+       accept_hostkey=yes
+
+- name: Build EDTS
+  # FIXME: .gitmodule should switch to the branch
+  shell: 'cd /home/{{ ansible_ssh_user }}/src/dotfiles/emacs.d/plugins/edts; git checkout chewbranca-hacks; make'
   run_once: true
