@@ -1,0 +1,9 @@
+- name: Install Ruby
+  apt: name={{ item }} state=latest update_cache=yes
+  with_items:
+    - ruby
+    - ruby-dev
+    - libopenssl-ruby
+    - bundler
+    - rubygems
+  sudo: yes
