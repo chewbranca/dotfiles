@@ -19,12 +19,20 @@
 ;; (load-theme 'twilight)
 
 ;; Magit colorings
+;; (eval-after-load 'magit
+;;   '(progn
+;;      (set-face-background 'magit-item-highlight "black")
+;;      (set-face-background 'diff-refine-change "grey10")
+;;      (set-face-foreground 'magit-diff-add "green4")
+;;      (set-face-foreground 'magit-diff-del "red3")))
+
 (eval-after-load 'magit
   '(progn
      (set-face-background 'magit-item-highlight "black")
      (set-face-background 'diff-refine-change "grey10")
-     (set-face-foreground 'magit-diff-add "green4")
-     (set-face-foreground 'magit-diff-del "red3")))
+     (set-face-foreground 'magit-diff-add "black")
+     (set-face-foreground 'magit-diff-del "black")
+     ))
 
 
 (defun do-solarized-dark ()
