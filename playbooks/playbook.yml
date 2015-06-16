@@ -62,6 +62,9 @@
         - libxml2-dev
         - libxslt1-dev
         - tmux
+        # - apt-transport-s3
+        - exuberant-ctags
+
         # - erlang
         - tree
         - python-pip
@@ -161,4 +164,6 @@
       sudo: yes
 
     # install Ruby
-    - include: ruby.yml
+    # - include: ruby.yml
+
+    - include: vim.yml

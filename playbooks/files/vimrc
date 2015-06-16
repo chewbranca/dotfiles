@@ -1,0 +1,70 @@
+execute pathogen#infect()
+call pathogen#helptags()
+"syntax on
+"filetype plugin indent on
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+autocmd BufRead,BufNewFile *.erl,*.es.*.hrl,*.yaws,*.xrl set tabstop=4|set shiftwidth=4|set expandtab| set softtabstop=4
+au BufNewFile,BufRead *.erl,*.es,*.hrl,*.yaws,*.xrl setf erlang
+"autocmd FileType erlang set commentstring=%%\ %s
+
+
+"set tags^=/path/to/my_erlang_project/tags
+
+let mapleader = ","
+
+"
+" CtrlP settings
+"
+" only search in cwd, useful for nested git repos
+let g:ctrlp_working_path_mode = 0
+
+" bind all the CtrlP things
+nnoremap <leader>f :CtrlP<CR>
+nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <leader>T :CtrlPBufTag<CR>
+nnoremap <leader>t :CtrlPTag<CR>
+nnoremap <leader>F :CtrlPCurWD<CR>
+nnoremap <leader>M :CtrlPMRUFiles<CR>
+nnoremap <leader>m :CtrlPMixed<CR>
+nnoremap <leader>l :CtrlPLine<CR>
+
+
+"
+"" Misc
+"
+"set ruler
+"set history=1000
+"set wildmenu
+set wildignore=*.o,*.obj,*~,*.beam,*.log,*.sql,vendor/**,.git/**,.eunit/**
+"set showcmd " show me what I'm typing
+set title
+"" whitespace
+set list
+set relativenumber
+set hlsearch
+"set listchars=tab:>-,trail:·,eol:$
+"set listchars=tab:>-,trail:-
+nmap <silent> <leader>s :set nolist!<CR>
+" window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+" "let mapleader = ","
+"
+colors vividchalk
+" jj to exit insert mode
+:imap jj <Esc>
+
+let g:airline_powerline_fonts=1
+set encoding=utf-8
+
+" persistent undo
+set undodir=~/.vim/undodir
+set undofile
+set undolevels=1000
+
