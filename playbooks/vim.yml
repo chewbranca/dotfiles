@@ -27,5 +27,6 @@
     - { name: 'vim-fugitive', repo: 'https://github.com/tpope/vim-fugitive.git' }
     - { name: 'vim-sensible', repo: 'https://github.com/tpope/vim-sensible.git' }
     - { name: 'vim-commentary', repo: 'https://github.com/tpope/vim-commentary.git' }
+    - { name: 'vim-vividchalk', repo: 'https://github.com/tpope/vim-vividchalk.git' }
 
 # TODO: install user_default for autoloading
