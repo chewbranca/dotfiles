@@ -9,7 +9,7 @@ set expandtab
 
 autocmd BufRead,BufNewFile *.erl,*.es.*.hrl,*.yaws,*.xrl set tabstop=4|set shiftwidth=4|set expandtab| set softtabstop=4
 au BufNewFile,BufRead *.erl,*.es,*.hrl,*.yaws,*.xrl setf erlang
-au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown tabstop=1|set shiftwidth=2|set expandtab| set softtabstop=2
 "autocmd FileType erlang set commentstring=%%\ %s
 autocmd BufRead,BufNewFile *.html set tabstop=2|set shiftwidth=2|set expandtab| set softtabstop=2
 
