@@ -11,13 +11,13 @@
       sudo: yes
       when: ansible_distribution == 'Debian'
 
-    # - name: Add Erlang Solutions Apt repo
-    #   apt_repository: repo="deb http://packages.erlang-solutions.com/debian wheezy contrib" state=present
-    #   sudo: yes
+    - name: Add Erlang Solutions Apt repo
+      apt_repository: repo="deb http://packages.erlang-solutions.com/debian wheezy contrib" state=present
+      sudo: yes
 
-    # - name: Add Erlang Solutions Apt key
-    #   apt_key: url="http://packages.erlang-solutions.com/debian/erlang_solutions.asc" state=present
-    #   sudo: yes
+    - name: Add Erlang Solutions Apt key
+      apt_key: url="http://packages.erlang-solutions.com/debian/erlang_solutions.asc" state=present
+      sudo: yes
 
     - name: Update apt-cache
       apt: update_cache=yes
@@ -90,6 +90,10 @@
         - gettext
         - libdw-dev
 
+      sudo: yes
+
+    - name: Install Erlang 17.5.3
+      apt: name=esl-erlang=1:17.5.3 state=present update_cache=yes
       sudo: yes
 
     - file: path=/home/{{ ansible_ssh_user }}/src state=directory

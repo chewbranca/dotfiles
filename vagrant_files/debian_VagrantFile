@@ -5,6 +5,7 @@ Vagrant.configure("2") do |config|
   config.vm.guest = :debian
   config.vm.box = "puphpet/debian75-x64"
   config.vm.network "private_network", ip: "192.168.33.17"
+  #config.vm.network "private_network", type: "dhcp"
 
   # Use NFS as a shared folder
   config.vm.synced_folder ".", "/vagrant", :nfs => true, id: "vagrant-root"
