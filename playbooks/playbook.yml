@@ -6,41 +6,42 @@
 
   tasks:
 
-    - name: Add Debian backports
-      apt_repository: repo="deb http://http.debian.net/debian wheezy-backports main" state=present
-      sudo: yes
-      when: ansible_distribution == 'Debian'
+    #- name: Add Debian backports
+    #  apt_repository: repo="deb http://http.debian.net/debian wheezy-backports main" state=present
+    #  become: true
+    #  when: ansible_distribution == 'Debian'
 
-    - name: Add Erlang Solutions Apt repo
-      apt_repository: repo="deb http://packages.erlang-solutions.com/debian wheezy contrib" state=present
-      sudo: yes
+    #- name: Add Erlang Solutions Apt repo
+    #  apt_repository: repo="deb http://packages.erlang-solutions.com/debian wheezy contrib" state=present
+    #  become: true
 
-    - name: Add Erlang Solutions Apt key
-      apt_key: url="http://packages.erlang-solutions.com/debian/erlang_solutions.asc" state=present
-      sudo: yes
+    #- name: Add Erlang Solutions Apt key
+    #  apt_key: url="http://packages.erlang-solutions.com/debian/erlang_solutions.asc" state=present
+    #  become: true
 
-    - name: Update apt-cache
-      apt: update_cache=yes
-      sudo: yes
+    #- name: Update apt-cache
+    #  apt: update_cache=yes
+    #  become: true
 
-    - name: Install Emacs24 on Debian
-      apt: name=emacs24-nox state=latest default_release=wheezy-backports
-      sudo: yes
-      when: ansible_distribution == 'Debian'
+    #- name: Install Emacs24 on Debian
+    #  apt: name=emacs24-nox state=latest default_release=wheezy-backports
+    #  become: true
+    #  when: ansible_distribution == 'Debian'
 
     - name: Install libcurl on Debian
-      apt: name=libcurl4-openssl-dev state=latest default_release=wheezy-backports
-      sudo: yes
+      #apt: name=libcurl4-openssl-dev state=latest default_release=wheezy-backports
+      apt: name=libcurl4-openssl-dev state=latest
+      become: true
       when: ansible_distribution == 'Debian'
 
     - name: Install Emacs24 on Ubuntu
       apt: name=emacs24-nox state=latest
-      sudo: yes
+      become: true
       when: ansible_distribution == 'Ubuntu'
 
     - name: Install libcurl on Ubuntu
       apt: name=libcurl4-openssl-dev
-      sudo: yes
+      become: true
       when: ansible_distribution == 'Ubuntu'
 
     - name: Install deps
@@ -79,7 +80,7 @@
         - tcpdump
         - iptraf-ng
         - iotop
-        - linux-tools-3.2
+        - linux-tools-3.16
 
         # erln8 deps
         - fop
@@ -91,11 +92,11 @@
         - gettext
         - libdw-dev
 
-      sudo: yes
+      become: true
 
-    - name: Install Erlang 17.5.3
-      apt: name=esl-erlang=1:17.5.3 state=present update_cache=yes
-      sudo: yes
+    #- name: Install Erlang 17.5.3
+    #  apt: name=esl-erlang=1:17.5.3 state=present update_cache=yes
+    #  become: true
 
     - file: path=/home/{{ ansible_ssh_user }}/src state=directory
     - file: path=/home/{{ ansible_ssh_user }}/bin state=directory
@@ -138,7 +139,7 @@
     #   file: path=/home/{{ ansible_ssh_user }}/bin/rebar mode=0755
 
     - name: Fetch CouchDB
-      git: repo="https://git-wip-us.apache.org/repos/asf/couchdb.git"
+      git: repo="https://github.com/apache/couchdb.git"
            dest=/home/{{ ansible_ssh_user }}/src/couchdb
            update=no
            clone=yes
@@ -166,7 +167,7 @@
       with_items:
         - requests
         - grequests
-      sudo: yes
+      become: true
 
     # install Ruby
     # - include: ruby.yml
