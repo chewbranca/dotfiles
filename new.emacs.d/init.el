@@ -19,9 +19,6 @@
 
 ;; 3rd-party packages
 (dolist (l (directory-files (concat user-emacs-directory "lib") nil "^[^\.]"))
-  (message "***Loading package %s" l)
-  (message "***ADDING PATH %s" (concat user-emacs-directory "lib/" l))
-  (message "***CONCAT IS %s" (concat l ".el"))
   (add-to-list 'load-path (concat user-emacs-directory "lib/" l))
   (autoload (intern l) (concat l ".el")))
 
@@ -33,7 +30,6 @@
 ;; paths as relative to user-emacs-directory, so we have to add
 ;; this. If we add user-emacs-directory by itself to load-path, Emacs
 ;; warns us that we shouldn't do that, so we trick it.
-(message "***ADDING USER LOAD PATH %s" (concat user-emacs-directory "/russell/../"))
 (add-to-list 'load-path (concat user-emacs-directory "/russell/../"))
 (load (concat user-emacs-directory "my-autoload.el") t)
 (load custom-file t)
