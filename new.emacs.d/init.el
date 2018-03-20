@@ -37,6 +37,7 @@
 (setq custom-theme-load-path
       (directory-files (concat user-emacs-directory "themes") t "^[^\.]"))
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'cyberpunk t)
 
 (require 'find-file-in-project)
 (add-to-list 'ffip-patterns "*.erl")
