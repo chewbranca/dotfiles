@@ -1,0 +1,13 @@
+git subtree add --prefix new.emacs.d/lib/smex https://github.com/nonsequitur/smex.git master --squash 
+git subtree add --prefix new.emacs.d/lib/magit https://github.com/magit/magit.git 1.2.1 --squash
+git subtree add --prefix new.emacs.d/lib/better-defaults https://github.com/technomancy/better-defaults.git master --squash
+git subtree add --prefix new.emacs.d/lib/find-file-in-project https://github.com/technomancy/find-file-in-project/releases 5.5.2 --squash
+git subtree add --prefix new.emacs.d/lib/lua-mode https://github.com/immerrr/lua-mode master --squash
+git subtree add --prefix new.emacs.d/lib/s https://github.com/magnars/s.el master --squash
+git subtree add --prefix new.emacs.d/lib/evil https://github.com/emacs-evil/evil master --squash
+git subtree add --prefix new.emacs.d/lib/find-file-in-project https://github.com/technomancy/find-file-in-project 5.5.2 --squash
+git subtree add --prefix new.emacs.d/lib/seq https://github.com/NicolasPetton/seq.el master --squash
+git subtree add --prefix new.emacs.d/lib/ido-completing-read-plus https://github.com/DarwinAwardWinner/ido-completing-read-plus master --squash
+git subtree add --prefix new.emacs.d/lib/memoize https://github.com/skeeto/emacs-memoize 1.1 --squash
+git subtree add --prefix new.emacs.d/themes/dracula https://github.com/dracula/emacs master --squash
+git subtree add --prefix new.emacs.d/themes/cyberpunk https://github.com/n3mo/cyberpunk-theme.el master --squash
