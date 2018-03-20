@@ -60,6 +60,9 @@
 (add-to-list 'ffip-patterns "*.json")
 (add-to-list 'ffip-patterns "Dockerfile")
 
+;; FIXME: shouldn't be necessary
+(require 'better-defaults)
+
 (when (require 'smex nil t)
   (smex-initialize)
   (global-set-key (kbd "M-x") 'smex))
@@ -81,3 +84,4 @@
 (ido-everywhere 1)
 
 (eshell)
+(set-face-foreground 'eshell-prompt "turquoise")
