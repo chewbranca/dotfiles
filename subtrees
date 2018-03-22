@@ -11,3 +11,4 @@ git subtree add --prefix new.emacs.d/lib/ido-completing-read-plus https://github
 git subtree add --prefix new.emacs.d/lib/memoize https://github.com/skeeto/emacs-memoize 1.1 --squash
 git subtree add --prefix new.emacs.d/themes/dracula https://github.com/dracula/emacs master --squash
 git subtree add --prefix new.emacs.d/themes/cyberpunk https://github.com/n3mo/cyberpunk-theme.el master --squash
+git subtree add --prefix new.emacs.d/lib/markdown-mode https://github.com/jrblevin/markdown-mode master --squash
