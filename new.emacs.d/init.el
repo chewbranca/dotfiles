@@ -44,6 +44,7 @@
 (add-to-list 'ffip-patterns "*.ex")
 (add-to-list 'ffip-patterns "*.exs")
 (add-to-list 'ffip-patterns "*.c")
+(add-to-list 'ffip-patterns "*.cpp")
 (add-to-list 'ffip-patterns "*.h")
 (add-to-list 'ffip-patterns "*.fnl")
 (add-to-list 'ffip-patterns "*.lua")
