@@ -95,6 +95,9 @@
 (ido-mode 1)
 (ido-everywhere 1)
 
+(require 'ido-completing-read+)
+(ido-ubiquitous-mode 1)
+
 (setq evil-want-C-u-scroll t)
 (require 'evil)
 (evil-mode 1)
