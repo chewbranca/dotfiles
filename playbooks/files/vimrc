@@ -42,7 +42,7 @@ nnoremap <leader>l :CtrlPLine<CR>
 "set history=1000
 "set wildmenu
 set wildignore=*.o,*.obj,*~,*.beam,*.log,*.sql,vendor/**,.git/**,.eunit/**
-"set showcmd " show me what I'm typing
+set showcmd " show me what I'm typing
 set title
 "" whitespace
 set list
